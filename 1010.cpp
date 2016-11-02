@@ -73,4 +73,4 @@ int main(){
 	if(ans==-1)	printf("Impossible");
 	else printf("%lld",ans);
 	return 0;
-} 
+}
