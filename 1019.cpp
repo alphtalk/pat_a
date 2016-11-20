@@ -9,30 +9,30 @@ int N,base;
 int converse(int b){
 	int i = 0;
 	while(N){
-		B[i++]=N%base;
-		N=N/base;
+		B[i++] = N % base;
+		N /= base;
 	}
 	return i;
 }
 int isPalindromic(int len){
-	for(int i=0;i<len;i++){
-		if(B[i]!=B[len-i-1])
+	for(int i = 0; i < len; i++){
+		if(B[i] != B[len - i - 1])
 			return 0;
 	}
 	return 1;
 }
 int main(){
 	scanf("%d%d", &N, &base);
-	if(N==0) printf("Yes\n0");//对0这个回文数特殊处理
+	if(N == 0) printf("Yes\n0");//对0这个回文数特殊处理
 	else{
 		int len = converse(base);
 		if(isPalindromic(len))
 			printf("Yes");
 		else printf("No");
 		putchar('\n');
-		for(int i=len-1;i>=0;i--){
-			if(i!=(len-1))	putchar(' ');
-			printf("%d",B[i]);
+		for(int i = len-1;i >= 0;i--){
+			if(i != (len - 1))	putchar(' ');
+			printf("%d", B[i]);
 		}
 	}
 	return 0;
