@@ -106,7 +106,7 @@ bool isCompleteTree(node *root, int n) {
 		q.push(front->right);
 	}
 	return true;
-}
+}  
 int main() {
 	int n, v;
 	scanf("%d", &n);
