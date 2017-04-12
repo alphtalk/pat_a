@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <algorithm>
 using namespace std;
-struct node {
+struct node { 
 	int v, height;
 	node *lchild, *rchild;
 } *root;
