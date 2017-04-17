@@ -1,26 +1,26 @@
 /*
-����Ҫ�������⣬��A��B�й�ͬ���ã�B��C�й�ͬ������A��C����ͬһ���罻���磬��������һ�㣬��֪��
-���⿼����Ƿ�������⣬��Ȼ�뵽���鼯���֪ʶ�㣬���ǿ�����һ��hobby[]�����ʾ���еİ��ã�hobby[x]
-��ʾϲ��x���ˣ���ÿ�ζ��뵱ǰ���˵ı�ź͸�������һ�����˺ϲ������û���˸���һ������hobby[���İ���]
-��Ϊ���ı�ţ��������൱���Լ����Լ��ϲ����ȵ��´α�������Щ����ʱ���Ϳ��Ը����ϲ��ˡ�
+首先要看懂题意，若A和B有共同爱好，B和C有共同爱好则A和C属于同一个社交网络，理解了这一点，就知道
+这题考察的是分类的问题，自然想到并查集这个知识点，我们可以用一个hobby[]数组表示所有的爱好，hobby[x]
+表示喜欢x的人，把每次读入当前的人的编号和跟她爱好一样的人合并，如果没有人跟他一样，则hobby[他的爱好]
+设为他的编号，这样就相当于自己跟自己合并，等到下次别人有这些爱好时，就可以跟他合并了。
 */
 #include <cstdio>
 #include <algorithm>
 using namespace std;
 const int N = 1005;
-int father[N];			//��Ÿ��׽ڵ�
-int isRoot[N];			//��¼ÿ���ڵ��Ƿ��Ǹ��ڵ�
+int father[N];			//存放父亲节点
+int isRoot[N];			//记录每个节点是否是根节点
 int hobby[1005];
 int findfather(int root) {
-	int c = root;			//���������Ľڵ㱣����������Ϊ����rootΪ���ڵ���
+	int c = root;			//将传进来的节点保存下来，因为过后root为根节点了
 	while (root != father[root]) {
 		root = father[root];
 	}
-	//·��ѹ��,��ʱroot��Ϊ���ڵ�
-	while (c != father[c]) {  //����c�����ڵ�·���ϵ����нڵ㣬ʹ֮��ָ��root
-		int fa = father[c];   //��ȡc��ԭ����father
-		father[c] = root;	  //��c��father�޸�Ϊ���ڵ�	
-		c = fa;				  //��c��father��Ϊ�½ڵ�׼��������һ���ж�
+	//路径压缩,此时root已为根节点
+	while (c != father[c]) {  //遍历c到根节点路径上的所有节点，使之都指向root
+		int fa = father[c];   //获取c的原来的father
+		father[c] = root;	  //把c的father修改为根节点	
+		c = fa;				  //把c的father作为新节点准备进行下一次判断
 	}
 	return root;
 }
@@ -33,7 +33,7 @@ void Union(int a, int b) {
 }
 void init(int n) {
 	for (int i = 0; i <= n; i++) {
-		father[i] = i;		  //һ��ʼÿ��Ԫ�ض��Ƕ����ļ���	
+		father[i] = i;		  //一开始每个元素都是独立的集合	
 	}
 }
 bool cmp(int a, int b) {
@@ -47,16 +47,16 @@ int main() {
 		scanf("%d:", &temp);
 		for (int j = 0; j < temp; j++) {
 			scanf("%d", &h);
-			if (hobby[h] == 0) {  //hobby[h]��ʾϲ��h������ĸ��ˣ�Ϊ0��ʾ��û����ϲ��
-				hobby[h] = i;	  //��¼��i������ǵ�һ��ϲ���ģ���Ϊ���ڵ�	
+			if (hobby[h] == 0) {  //hobby[h]表示喜欢h活动的是哪个人，为0表示还没有人喜欢
+				hobby[h] = i;	  //记录下i这个人是第一个喜欢的，设为根节点	
 			}
-			Union(i, findfather(hobby[h])); //�Ժ�������ϲ�������գ��ϲ�����
+			Union(i, findfather(hobby[h])); //以后再有人喜欢，（收）合并儿子
 		}
 	}
-	for (int i = 1; i <= n; i++) {
-		isRoot[findfather(i)]++;	//ͳ�Ƴ���ÿ�����ڵ㣨���ϣ��ж��ٺ����Ԫ�أ�
+	for (int i = 1; i <= n; i++) { 
+		isRoot[findfather(i)]++;	//统计出了每个根节点（集合）有多少后代（元素）
 	}
-	int count;    //��¼������Ŀ
+	int count;    //记录集合数目
 	for (int i = 1; i <= n; i++) {
 		if (isRoot[i] != 0) {
 			count++;
