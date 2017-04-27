@@ -4,14 +4,13 @@ using namespace std;
 const int MAX = 550;
 const int INF = 0x3fffffff;
 int n, m, st, ed;
-int d[MAX], G[MAX][MAX], cost[MAX][MAX], num[MAX], c[MAX], pre[MAX];
+int d[MAX], G[MAX][MAX], cost[MAX][MAX], c[MAX], pre[MAX];
 bool vis[MAX] = { false };
 void Dijkstra(int s) {
 	fill(d, d + MAX, INF);
 	fill(c, c + MAX, INF);			//初始化c数组时，初始化为最大值，因为后面是比较出最小的来
 	d[s] = 0;
 	c[s] = 0;
-	num[s] = 1;
 	for (int i = 0; i < n; i++) {		//这里是固定的循环n次，与下一个构成双层for循环
 		int u = -1, min = INF;
 		for (int j = 0; j < n; j++) {
