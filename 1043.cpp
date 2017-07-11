@@ -40,8 +40,8 @@ void postOrder(Node *root, vector<int>&vi) {
 	if (root == NULL) {
 		return;
 	}
-	postOrder(root->right, vi);
 	postOrder(root->left, vi);
+	postOrder(root->right, vi);
 	vi.push_back(root->data);
 }
 void postOrderMirror(Node *root, vector<int>&vi) {
@@ -58,8 +58,9 @@ int main() {
 	scanf("%d", &n);
 	for (int i = 0; i < n; i++) {
 		scanf("%d", &data);
-		insert(root, data);
 		origin.push_back(data);
+		insert(root, data);
+		
 	}
 	preOrder(root, pre);
 	preOrderMirror(root, preM);
