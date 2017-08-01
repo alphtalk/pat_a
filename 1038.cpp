@@ -26,7 +26,7 @@ int main() {
 	for (int i = 0; i < n; i++)
 		ans += str[i];
 	while (ans.size() > 1 && ans[0] == '0')//若字符串大于1且首元素为0则消除，消到只剩一个首元素还为0则不用消了
-		ans.erase(ans.begin());			//消除第一个元素
+		ans.erase(ans.begin());			   //消除第一个元素
 	cout << ans;
 
 	return 0;
