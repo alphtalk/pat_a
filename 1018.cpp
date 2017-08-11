@@ -47,6 +47,8 @@ void DFS(int v) {
 	tempPath.pop_back();
 }
 void Dijkstra(int s) {			//别忘了这是0-N共N+1个结点的迪杰斯特拉
+	fill(d, d + MAX, INF);
+	d[s] = 0;
 	for (int i = 0; i <= N; i++) {
 		int u = -1, min = INF;
 		for (int j = 0; j <= N; j++) {
@@ -72,8 +74,6 @@ void Dijkstra(int s) {			//别忘了这是0-N共N+1个结点的迪杰斯特拉
 	}
 }
 int main() {
-	fill(d, d + MAX, INF);
-	d[s] = 0;
 	fill(G[0], G[0] + MAX*MAX, INF);
 	scanf("%d%d%d%d", &Cmax, &N, &Sp, &M);
 	for (int i = 1; i <= N; i++) {	//各站的自行车数不包括中心0，故从1开始
